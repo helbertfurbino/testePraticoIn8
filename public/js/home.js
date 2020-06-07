@@ -18,15 +18,17 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    data: $scope.form
 	}).then(function successCallback(response) {
 
-	    if (response.data.status == 1)
+	    if (response.data.status == 1) {
 		alert('Opreação realizada com Sucesso!');
+		delete $scope.form;
+		listar();
+	    }
 
-	    else{
+	    else {
 		alert(response.data.msg);
 	    }
 
-	    delete $scope.form;
-	    listar();
+
 
 	}, function errorCallback(response) {
 
@@ -34,7 +36,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 		var erros = '';
 		for (var i in response.data.errors) {
 		    for (var j in response.data.errors[i]) {
-			erros += response.data.errors[i][j]+'\n';
+			erros += response.data.errors[i][j] + '\n';
 		    }
 		}
 		alert(erros);
@@ -57,7 +59,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
-		alert('Erro na validação dos dados!')
+		alert('Erro na validação dos dados!');
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
 	    }
@@ -66,8 +68,8 @@ angular.module('app').controller('home', function ($scope, $http) {
     }
 
     $scope.remover = function (index) {
-	
-	 delete $scope.form;
+
+
 
 	if (!confirm('Confirma a exclusão?'))
 	    return false;
@@ -77,8 +79,10 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    url: 'api/users/' + index,
 	    data: index
 	}).then(function successCallback(response) {
-	    if (response.data.status == 1)
+	    if (response.data.status == 1) {
 		listar();
+		delete $scope.form;
+	    }
 	    else
 		alert(response.data.msg);
 	}, function errorCallback(response) {
