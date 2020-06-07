@@ -65,6 +65,8 @@ angular.module('app').controller('home', function ($scope, $http) {
     }
 
     $scope.remover = function (index) {
+	
+	 delete $scope.form;
 
 	if (!confirm('Confirma a exclusão?'))
 	    return false;
@@ -82,7 +84,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
-		alert('Erro na validação dos dados!')
+		alert('Erro na validação dos dados!');
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
 	    }
@@ -91,7 +93,6 @@ angular.module('app').controller('home', function ($scope, $http) {
     };
 
     $scope.editar = function (data) {
-
 	$scope.form = data;
     };
 
