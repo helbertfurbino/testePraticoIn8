@@ -1,3 +1,9 @@
+1 - Nome do banco e senha no arquivo .env
+
+2 - Rodar as migrations para criar a tabela
+
+3 - Rodar as Seed para inserir os dados de demonstração
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
