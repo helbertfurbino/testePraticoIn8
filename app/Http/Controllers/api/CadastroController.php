@@ -15,7 +15,7 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-	
+
 	return Cadastro::all();
     }
 
@@ -36,16 +36,19 @@ class CadastroController extends Controller {
      */
     public function store(CadastroRequest $request) {
 
-	
-	if (Cadastro::create($request->all())) {
+	try{
+	    if (!Cadastro::create($request->all()))
+		throw new \Exception('Não foi possível cadastrar');
+
 	    return response()->json([
 			'status' => 1,
 	    ]);
-	};
-
-	return response()->json([
-		    'status' => 0,
-	]);
+	} catch(\Exception $e){
+	    return response()->json([
+			'status' => 0,
+			'msg' => $e->getMessage(),
+	    ]);
+	}
     }
 
     /**
@@ -55,7 +58,7 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-	
+
 	return Cadastro::findOrFail($id);
     }
 
@@ -80,15 +83,19 @@ class CadastroController extends Controller {
 
 	$user = Cadastro::findOrFail($id);
 
-	if ($user->update($request->all())) {
+	try{
+	    if (!$user->update($request->all()))
+		throw new \Exception('Não foi possível atualizar');
+
 	    return response()->json([
 			'status' => 1,
 	    ]);
-	};
-
-	return response()->json([
-		    'status' => 0,
-	]);
+	} catch(\Exception $e){
+	    return response()->json([
+			'status' => 0,
+			'msg' => $e->getMessage(),
+	    ]);
+	}
     }
 
     /**
@@ -98,17 +105,21 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-	
+
 	$user = Cadastro::findOrFail($id);
 
-	if ($user->delete()) {
+	try{
+	    if (!$user->delete())
+		throw new \Exception('Não foi possível excluir');
+
 	    return response()->json([
 			'status' => 1,
 	    ]);
-	};
-
-	return response()->json([
-		    'status' => 0,
-	]);
+	} catch(\Exception $e){
+	    return response()->json([
+			'status' => 0,
+			'msg' => $e->getMessage(),
+	    ]);
+	}
     }
 }

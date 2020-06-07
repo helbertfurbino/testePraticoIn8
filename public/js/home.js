@@ -21,8 +21,9 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    if (response.data.status == 1)
 		alert('Opreação realizada com Sucesso!');
 
-	    else
-		alert('Erro ao realizar operação!');
+	    else{
+		alert(response.data.msg);
+	    }
 
 	    delete $scope.form;
 	    listar();
@@ -79,8 +80,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    if (response.data.status == 1)
 		listar();
 	    else
-		alert('Erro ao realizar operação!');
-	    ;
+		alert(response.data.msg);
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
