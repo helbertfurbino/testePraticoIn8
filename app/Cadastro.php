@@ -31,4 +31,9 @@ class Cadastro extends Model {
     public function setNascimentoAttribute($value) {
 	$this->attributes['nascimento'] =  isset($value) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : null;
     }
+    
+    public function setTelefoneAttribute($value) {
+	$this->attributes['telefone'] =  isset($value) ? preg_replace('/[^0-9]/', '', $value) : null;
+    }
+   
 }

@@ -1,6 +1,8 @@
 (function () {
     app = angular.module('app', []);
-})()
+})();
+
+
 angular.module('app').controller('home', function ($scope, $http) {
 
     $scope.salvar = function ($event) {
@@ -39,21 +41,21 @@ angular.module('app').controller('home', function ($scope, $http) {
     listar();
 
     function listar() {
+	
+	    $http({
+		method: 'GET',
+		url: 'api/users'
+	    }).then(function successCallback(response) {
+		$scope.cadastros = response.data;
+	    }, function errorCallback(response) {
 
-	$http({
-	    method: 'GET',
-	    url: 'api/users'
-	}).then(function successCallback(response) {
-	    $scope.cadastros = response.data;
-	}, function errorCallback(response) {
+		if (response.status == 422) {
+		    alert('Erro na validação dos dados!')
+		} else {
+		    alert('Não foi possível prosseguir. Por favor, tente novamente.');
+		}
 
-	    if (response.status == 422) {
-		alert('Erro na validação dos dados!')
-	    } else {
-		alert('Não foi possível prosseguir. Por favor, tente novamente.');
-	    }
-
-	});
+	    });
     }
 
     $scope.remover = function (index) {
