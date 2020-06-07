@@ -1,3 +1,6 @@
+(function () {
+    app = angular.module('app', []);
+})()
 angular.module('app').controller('home', function ($scope, $http) {
 
     $scope.salvar = function ($event) {
@@ -12,10 +15,10 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    url: url,
 	    data: $scope.form
 	}).then(function successCallback(response) {
-	   
+
 	    if (response.data.status == 1)
 		alert('Opreação realizada com Sucesso!');
-	    
+
 	    else
 		alert('Erro ao realizar operação!');
 
