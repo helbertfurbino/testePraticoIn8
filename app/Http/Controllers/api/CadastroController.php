@@ -14,6 +14,7 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+	
 	return Cadastro::all();
     }
 
@@ -33,7 +34,17 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-	Cadastro::create($request->all());
+
+	
+	if (Cadastro::create($request->all())) {
+	    return response()->json([
+			'status' => 1,
+	    ]);
+	};
+
+	return response()->json([
+		    'status' => 0,
+	]);
     }
 
     /**
@@ -43,6 +54,7 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
+	
 	return Cadastro::findOrFail($id);
     }
 
@@ -64,8 +76,18 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
+
 	$user = Cadastro::findOrFail($id);
-	$user->update($request->all());
+
+	if ($user->update($request->all())) {
+	    return response()->json([
+			'status' => 1,
+	    ]);
+	};
+
+	return response()->json([
+		    'status' => 0,
+	]);
     }
 
     /**
@@ -75,7 +97,17 @@ class CadastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
+	
 	$user = Cadastro::findOrFail($id);
-	$user->delete();
+
+	if ($user->delete()) {
+	    return response()->json([
+			'status' => 1,
+	    ]);
+	};
+
+	return response()->json([
+		    'status' => 0,
+	]);
     }
 }

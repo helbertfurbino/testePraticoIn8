@@ -7,9 +7,9 @@
 	<script src="http://localhost/testePraticoIn8/public/js/angular.min.js"></script>	
 	<link rel="stylesheet" href="http://localhost/testePraticoIn8/public/css/app.css">
 	<script>
-		    (function () {
-		    app = angular.module('app', []);
-		    })();</script>
+	    (function () {
+		app = angular.module('app', []);
+	    })();</script>
 	<script src="http://localhost/testePraticoIn8/public/js/home.js"></script>
     </header>
 
@@ -22,33 +22,42 @@
 			{!! Form::email('email' ,null, ['class'=>'form-control', 'placeholder'=>'email', 'id'=>'email', 'ng-model'=>'form.email']) !!}
 			{!! Form::text('nascimento' ,null, ['class'=>'form-control', 'placeholder'=>'Nascimento', 'id'=>'nascimento', 'ng-model'=>'form.nascimento']) !!}
 			{!! Form::text('telefone' ,null, ['class'=>'form-control', 'placeholder'=>'telefone', 'id'=>'telefone', 'ng-model'=>'form.telefone']) !!}
-			<input type="hidden" name="_token" value="{{ csrf_token()}}">
-			{!! Form::submit('Cadastrar')!!}
+			{!! Form::hidden('id' ,null, ['ng-model'=>'form.id']) !!}
+			<input type="hidden" name="_token" id="_token" value="{{ csrf_token()}}">
+			{!! Form::submit('Salvar')!!}
 		    </form>
                 </div>
 
-		<table class="table table-condensed table-striped table-hover odd" id="table-search" ng-init="cadastros">
+		<table border="1" ng-init="cadastros">
 		    <thead>
 			<tr>
 			    <th>Nome</th>
 			    <th>Email</th>
-			    <th>Nacimento</th>
+			    <th>Nascimento</th>
 			    <th>Telefone</th>
+			    <th>Excluir</th>
+			    <th>Editar</th>
 			</tr>
 		    </thead>
 		    <tbody>
 			<tr ng-repeat="item in cadastros">
-			    <td class="readmore">
-				<input type="text" ng-model="item.nome">
+			    <td>
+				@{{item.nome}}
 			    </td>
-			    <td class="readmore">
-				<input type="text" ng-model="item.email">
+			    <td>
+				@{{item.email}}
 			    </td>
-			    <td class="readmore">
-				<input type="text" ng-model="item.nascimento">
+			    <td>
+				@{{item.nascimento}}
 			    </td>
-			    <td class="readmore">
-				<input type="text" ng-model="item.telefone">
+			    <td>
+				@{{item.telefone}}
+			    </td>
+			    <td>		
+				<button ng-click=remover(item.id)>Excluir</button>
+			    </td>
+			    <td>
+				<button ng-click=editar(item)>Editar</button>
 			    </td>
 			</tr>
 		    </tbody>
