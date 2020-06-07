@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use Illuminate\Http\Request;
 use App\Cadastro;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\CadastroRequest;
 
 class CadastroController extends Controller {
 
@@ -33,7 +34,7 @@ class CadastroController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(CadastroRequest $request) {
 
 	
 	if (Cadastro::create($request->all())) {
@@ -75,7 +76,7 @@ class CadastroController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(CadastroRequest $request, $id) {
 
 	$user = Cadastro::findOrFail($id);
 

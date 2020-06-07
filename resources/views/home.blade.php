@@ -13,18 +13,18 @@
 			</div>
 			<div class="form-group">
 			    <label for="Email">Email</label>
-			    {!! Form::email('email' ,null, ['class'=>'form-control', 'placeholder'=>'email', 'id'=>'email', 'ng-model'=>'form.email', 'class'=>'form-control']) !!}
+			    {!! Form::email('email' ,null, ['class'=>'form-control', 'placeholder'=>'Email', 'id'=>'email', 'ng-model'=>'form.email', 'required'=>'required', 'class'=>'form-control']) !!}
 			</div>
 			<div class="form-group">
 			    <label for="Nascimento">Nascimento</label>
-			    {!! Form::text('nascimento' ,null, ['class'=>'form-control', 'placeholder'=>'Nascimento', 'id'=>'nascimento', 'ng-model'=>'form.nascimento', 'class'=>'form-control data']) !!}
+			    {!! Form::text('nascimento' ,null, ['class'=>'form-control', 'placeholder'=>'Nascimento', 'id'=>'nascimento', 'ng-model'=>'form.nascimento', 'required'=>'required', 'class'=>'form-control data']) !!}
 			</div>
 			<div class="form-group">
 			    <label for="Telefone">Telefone</label>
-			    {!! Form::text('telefone' ,null, ['class'=>'form-control', 'placeholder'=>'telefone', 'id'=>'telefone', 'ng-model'=>'form.telefone', 'class'=>'form-control tel']) !!}
+			    {!! Form::text('telefone' ,null, ['class'=>'form-control', 'placeholder'=>'Telefone', 'id'=>'telefone', 'ng-model'=>'form.telefone', 'class'=>'form-control tel']) !!}
 			</div>
 			{!! Form::hidden('id' ,null, ['ng-model'=>'form.id']) !!}
-			{!! Form::submit('Salvar', ['class'=>'btn btn-success'])!!}
+			{!! Form::submit('Salvar', ['class'=>'btn btn-success btn-block'])!!}
 		    </form>
                 </div>
 

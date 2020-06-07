@@ -30,7 +30,13 @@ angular.module('app').controller('home', function ($scope, $http) {
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
-		alert('Erro na validação dos dados!');
+		var erros = '';
+		for (var i in response.data.errors) {
+		    for (var j in response.data.errors[i]) {
+			erros += response.data.errors[i][j]+'\n';
+		    }
+		}
+		alert(erros);
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
 	    }
@@ -41,21 +47,21 @@ angular.module('app').controller('home', function ($scope, $http) {
     listar();
 
     function listar() {
-	
-	    $http({
-		method: 'GET',
-		url: 'api/users'
-	    }).then(function successCallback(response) {
-		$scope.cadastros = response.data;
-	    }, function errorCallback(response) {
 
-		if (response.status == 422) {
-		    alert('Erro na validação dos dados!')
-		} else {
-		    alert('Não foi possível prosseguir. Por favor, tente novamente.');
-		}
+	$http({
+	    method: 'GET',
+	    url: 'api/users'
+	}).then(function successCallback(response) {
+	    $scope.cadastros = response.data;
+	}, function errorCallback(response) {
 
-	    });
+	    if (response.status == 422) {
+		alert('Erro na validação dos dados!')
+	    } else {
+		alert('Não foi possível prosseguir. Por favor, tente novamente.');
+	    }
+
+	});
     }
 
     $scope.remover = function (index) {
