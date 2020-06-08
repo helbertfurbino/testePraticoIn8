@@ -39,14 +39,14 @@ class CadastroController extends Controller {
 
 	try{
 	    Cadastro::create($request->all());
-	    
+
 	    return response()->json([
 			'msg' => 'Registro Inserido com sucesso!'
 	    ]);
 	} catch(\Exception $e){
 	    Log::error($e->getMessage());
 	    return response()->json([
-			'errors' => 'Não foi possível cadastrar',
+			'error' => ['Não foi possível cadastrar'],
 			    ], 422);
 	}
     }
@@ -91,7 +91,7 @@ class CadastroController extends Controller {
 	} catch(\Exception $e){
 	    Log::error($e->getMessage());
 	    return response()->json([
-			'errors' => ['exception' => 'Não foi possível atualizar']
+			'error' => ['Não foi possível atualizar']
 			    ], 422);
 	}
     }
@@ -114,7 +114,7 @@ class CadastroController extends Controller {
 	} catch(\Exception $e){
 	    Log::error($e->getMessage());
 	    return response()->json([
-			'errors' => 'Erro ao efetuar exclusão'
+			'error' => 'Erro ao efetuar exclusão'
 			    ], 422);
 	}
     }

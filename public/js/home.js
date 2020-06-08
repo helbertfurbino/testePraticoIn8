@@ -23,11 +23,12 @@ angular.module('app').controller('home', function ($scope, $http) {
 
 	}, function errorCallback(response) {
 
+	    if (response.data.error) {
+		alert(response.data.error);
+		return;
+	    }
+
 	    if (response.status == 422) {
-		if (response.data.errors.exception) {
-		    alert(response.data.errors.exception);
-		    return false;
-		}
 
 		var erros = '';
 		for (var i in response.data.errors) {
@@ -81,7 +82,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
-		alert(response.data.errors);
+		alert(response.data.error);
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
 	    }
