@@ -17,17 +17,18 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    data: $scope.form
 	}).then(function successCallback(response) {
 
-	    if (response.status == 200) {
-		alert('Opreação realizada com Sucesso!');
-		delete $scope.form;
-		listar();
-	    }
-	    else {
-		alert(response.data.msg);
-	    }
+	    alert(response.data.msg);
+	    delete $scope.form;
+	    listar();
+
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
+		if (response.data.errors.exception) {
+		    alert(response.data.errors.exception);
+		    return false;
+		}
+
 		var erros = '';
 		for (var i in response.data.errors) {
 		    for (var j in response.data.errors[i]) {
@@ -53,7 +54,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    $scope.cadastros = response.data;
 	}, function errorCallback(response) {
 
-	    if (response.status == 422) {
+	    if (response.data.status == 422) {
 		alert('Erro na validação dos dados!');
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
@@ -72,16 +73,15 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    url: 'api/users/' + index,
 	    data: index
 	}).then(function successCallback(response) {
-	    if (response.status == 200) {
-		listar();
-		delete $scope.form;
-	    }
-	    else
-		alert(response.data.msg);
+
+	    alert(response.data.msg);
+	    listar();
+	    delete $scope.form;
+
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
-		alert('Erro na validação dos dados!');
+		alert(response.data.errors);
 	    } else {
 		alert('Não foi possível prosseguir. Por favor, tente novamente.');
 	    }

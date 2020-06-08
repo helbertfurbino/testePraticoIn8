@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Cadastro;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\CadastroRequest;
+use Illuminate\Support\Facades\Log;
 
 class CadastroController extends Controller {
 
@@ -37,15 +38,16 @@ class CadastroController extends Controller {
     public function store(CadastroRequest $request) {
 
 	try{
-	    if (!Cadastro::create($request->all()))
-		throw new \Exception('Não foi possível cadastrar');
-
+	    Cadastro::create($request->all());
+	    
 	    return response()->json([
+			'msg' => 'Registro Inserido com sucesso!'
 	    ]);
 	} catch(\Exception $e){
+	    Log::error($e->getMessage());
 	    return response()->json([
-			'msg' => $e->getMessage(),
-	    ]);
+			'errors' => 'Não foi possível cadastrar',
+			    ], 422);
 	}
     }
 
@@ -79,19 +81,18 @@ class CadastroController extends Controller {
      */
     public function update(CadastroRequest $request, $id) {
 
-	$user = Cadastro::findOrFail($id);
-
 	try{
-	    if (!$user->update($request->all()))
-		throw new \Exception('Não foi possível atualizar');
+	    $user = Cadastro::findOrFail($id);
+	    $user->update($request->all());
 
 	    return response()->json([
-			
+			'msg' => 'Registro atualizado com Sucesso!'
 	    ]);
 	} catch(\Exception $e){
+	    Log::error($e->getMessage());
 	    return response()->json([
-			'msg' => $e->getMessage(),
-	    ]);
+			'errors' => ['exception' => 'Não foi possível atualizar']
+			    ], 422);
 	}
     }
 
@@ -103,18 +104,18 @@ class CadastroController extends Controller {
      */
     public function destroy($id) {
 
-	$user = Cadastro::findOrFail($id);
-
 	try{
-	    if (!$user->delete())
-		throw new \Exception('Não foi possível excluir');
+	    $user = Cadastro::findOrFail($id);
+	    $user->delete();
 
 	    return response()->json([
+			'msg' => 'Registro Excluído com Sucesso!'
 	    ]);
 	} catch(\Exception $e){
+	    Log::error($e->getMessage());
 	    return response()->json([
-			'msg' => $e->getMessage(),
-	    ]);
+			'errors' => 'Erro ao efetuar exclusão'
+			    ], 422);
 	}
     }
 }
