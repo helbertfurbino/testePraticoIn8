@@ -23,12 +23,12 @@ angular.module('app').controller('home', function ($scope, $http) {
 
 	}, function errorCallback(response) {
 
-	    if (response.data.error) {
-		alert(response.data.error);
-		return;
-	    }
-
 	    if (response.status == 422) {
+
+		if (response.data.error) {
+		    alert(response.data.error);
+		    return;
+		}
 
 		var erros = '';
 		for (var i in response.data.errors) {
