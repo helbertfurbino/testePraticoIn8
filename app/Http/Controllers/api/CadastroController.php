@@ -41,11 +41,9 @@ class CadastroController extends Controller {
 		throw new \Exception('Não foi possível cadastrar');
 
 	    return response()->json([
-			'status' => 1,
 	    ]);
 	} catch(\Exception $e){
 	    return response()->json([
-			'status' => 0,
 			'msg' => $e->getMessage(),
 	    ]);
 	}
@@ -88,11 +86,10 @@ class CadastroController extends Controller {
 		throw new \Exception('Não foi possível atualizar');
 
 	    return response()->json([
-			'status' => 1,
+			
 	    ]);
 	} catch(\Exception $e){
 	    return response()->json([
-			'status' => 0,
 			'msg' => $e->getMessage(),
 	    ]);
 	}
@@ -113,11 +110,9 @@ class CadastroController extends Controller {
 		throw new \Exception('Não foi possível excluir');
 
 	    return response()->json([
-			'status' => 1,
 	    ]);
 	} catch(\Exception $e){
 	    return response()->json([
-			'status' => 0,
 			'msg' => $e->getMessage(),
 	    ]);
 	}

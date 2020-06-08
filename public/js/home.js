@@ -2,7 +2,6 @@
     app = angular.module('app', []);
 })();
 
-
 angular.module('app').controller('home', function ($scope, $http) {
 
     $scope.salvar = function ($event) {
@@ -18,18 +17,14 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    data: $scope.form
 	}).then(function successCallback(response) {
 
-	    if (response.data.status == 1) {
+	    if (response.status == 200) {
 		alert('Opreação realizada com Sucesso!');
 		delete $scope.form;
 		listar();
 	    }
-
 	    else {
 		alert(response.data.msg);
 	    }
-
-
-
 	}, function errorCallback(response) {
 
 	    if (response.status == 422) {
@@ -69,8 +64,6 @@ angular.module('app').controller('home', function ($scope, $http) {
 
     $scope.remover = function (index) {
 
-
-
 	if (!confirm('Confirma a exclusão?'))
 	    return false;
 
@@ -79,7 +72,7 @@ angular.module('app').controller('home', function ($scope, $http) {
 	    url: 'api/users/' + index,
 	    data: index
 	}).then(function successCallback(response) {
-	    if (response.data.status == 1) {
+	    if (response.status == 200) {
 		listar();
 		delete $scope.form;
 	    }
